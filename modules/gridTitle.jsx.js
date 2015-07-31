@@ -46,7 +46,7 @@ var GridTitle = React.createClass({
     var nodes = this.props.columnSettings.getColumns().map(function(col,
       index) {
       var columnSort = "";
-      var sortComponent = null;
+      var sortComponent = that.props.sortSettings.sortDefaultClassName;
       var titleStyles = null;
 
       if (that.props.sortSettings.sortColumn == col && that.props.sortSettings
