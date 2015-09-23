@@ -251,6 +251,10 @@ var Griddle = React.createClass({
         this.setState(state);
     },
     componentWillReceiveProps: function (nextProps) {
+        this.columnSettings = new ColumnProperties(nextProps.results.length > 0 ? _.keys(nextProps.results[0]) : [], nextProps.columns, nextProps.childrenColumnName, nextProps.columnMetadata, nextProps.metadataColumns);
+
+        this.rowSettings = new RowProperties(nextProps.rowMetadata, nextProps.useCustomTableRowComponent && nextProps.customTableRowComponent ? nextProps.customTableRowComponent : GridRow, nextProps.useCustomTableRowComponent);
+
         this.setMaxPage(nextProps.results);
 
         if (nextProps.columns !== this.columnSettings.filteredColumns) {
