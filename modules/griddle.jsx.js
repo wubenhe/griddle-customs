@@ -73,6 +73,7 @@ var Griddle = React.createClass({
             useFixedHeader: false,
             useExternal: false,
             externalSetPage: null,
+            externalSetColumns: null,
             externalChangeSort: null,
             externalSetFilter: null,
             externalSetPageSize: null,
@@ -214,6 +215,10 @@ var Griddle = React.createClass({
         this.setState({
             filteredColumns: this.columnSettings.filteredColumns
         });
+
+        if (this.props.externalSetColumns) {
+            this.props.externalSetColumns(columns);
+        }
     },
     nextPage: function () {
         var currentPage = this.getCurrentPage();
@@ -415,7 +420,7 @@ var Griddle = React.createClass({
             sortAscendingClassName: this.props.sortAscendingClassName,
             sortDescendingClassName: this.props.sortDescendingClassName,
             sortAscendingComponent: this.props.sortAscendingComponent,
-            sortDescendingComponent: this.props.sortDescendingComponent, 
+            sortDescendingComponent: this.props.sortDescendingComponent,
             sortDefaultComponent: this.props.sortDefaultComponent
         };
     },
