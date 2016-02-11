@@ -109,7 +109,8 @@ var Griddle = React.createClass({
             parentRowExpandedComponent: "▼",
             settingsIconComponent: "",
             nextIconComponent: "",
-            previousIconComponent: ""
+            previousIconComponent: "", 
+            externalComponentDidUpdate: null
         };
     },
     /* if we have a filter display the max page and results accordingly */
@@ -279,6 +280,11 @@ var Griddle = React.createClass({
         };
 
         return state;
+    },
+    componentDidUpdate: function(prevProps, prevState) {
+      if (this.props.externalComponentDidUpdate) {
+        this.props.externalComponentDidUpdate(prevProps, prevState);
+      }
     },
     componentWillMount: function () {
         this.verifyExternal();
