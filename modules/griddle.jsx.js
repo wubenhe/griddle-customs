@@ -110,7 +110,8 @@ var Griddle = React.createClass({
             settingsIconComponent: "",
             nextIconComponent: "",
             previousIconComponent: "", 
-            externalComponentDidUpdate: null
+            externalComponentDidUpdate: null, 
+            externalGetDataForRender: null
         };
     },
     /* if we have a filter display the max page and results accordingly */
@@ -365,6 +366,10 @@ var Griddle = React.createClass({
             if (this.state.sortAscending === false) {
                 data.reverse();
             }
+        }
+        
+        if(this.props.externalGetDataForRender){
+          data = this.props.externalGetDataForRender(data);
         }
 
         var currentPage = this.getCurrentPage();
