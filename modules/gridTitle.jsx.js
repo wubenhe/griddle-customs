@@ -1,11 +1,30 @@
 "use strict";
 
+var _extends = Object.assign || function (target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i];for (var key in source) {
+      if (Object.prototype.hasOwnProperty.call(source, key)) {
+        target[key] = source[key];
+      }
+    }
+  }return target;
+};
+
 /*
    See License / Disclaimer https://raw.githubusercontent.com/DynamicTyped/Griddle/master/LICENSE
 */
 var React = require("react");
 var _ = require("underscore");
 var ColumnProperties = require("./columnProperties.js");
+var assign = require('lodash/assign');
+
+var DefaultHeaderComponent = React.createClass({
+ displayName: 'DefaultHeaderComponent',
+
+ render: function render() {
+   return React.createElement('span', null, this.props.displayName);
+ }
+});
 
 var GridTitle = React.createClass({
   displayName: "GridTitle",
@@ -68,6 +87,8 @@ var GridTitle = React.createClass({
         col, "sortable", true);
       var displayName = that.props.columnSettings.getMetadataColumnProperty(
         col, "displayName", col);
+      var HeaderComponent = that.props.columnSettings.getMetadataColumnProperty(col, "customHeaderComponent", DefaultHeaderComponent);
+      var headerProps = that.props.columnSettings.getMetadataColumnProperty(col, "customHeaderComponentProps", {});
 
       columnSort = meta == null ? columnSort : (columnSort &&
           columnSort + " " || columnSort) + that.props.columnSettings
@@ -84,34 +105,34 @@ var GridTitle = React.createClass({
         };
       }
 
-      return React.createElement(
-        "th", {
-          onClick: columnIsSortable ? that.sort : null,
-          "data-title": col,
-          className: columnSort,
-          key: index,
-          style: titleStyles
-        },
-        displayName,
-        sortComponent
-      );
+      // return React.createElement(
+      //   "th", {
+      //     onClick: columnIsSortable ? that.sort : null,
+      //     "data-title": col,
+      //     className: columnSort,
+      //     key: index,
+      //     style: titleStyles
+      //   },
+      //   displayName,
+      //   sortComponent
+      // );
+      return React.createElement('th', { onClick: columnIsSortable ? that.sort(col) : null, 'data-title': col, className: columnSort, key: col,
+        style: titleStyles }, React.createElement(HeaderComponent, _extends({ columnName: col, displayName: displayName,
+          filterByColumn: that.props.filterByColumn }, headerProps)), sortComponent);
     });
 
     //Get the row from the row settings.
     var className = that.props.rowSettings && that.props.rowSettings.getHeaderRowMetadataClass() ||
       null;
 
-    return React.createElement(
-      "thead",
-      null,
-      React.createElement(
-        "tr", {
-          className: className,
-          style: this.props.headerStyles
-        },
-        nodes
-      )
-    );
+
+    // return React.createElement('thead', null, React.createElement('tr', {
+    //   className: className,
+    //   style: this.props.headerStyles }, nodes));
+
+    return React.createElement('thead', null, React.createElement('tr', {
+      className: className,
+      style: this.props.headerStyles }, nodes));
   }
 });
 
