@@ -116,7 +116,7 @@ var GridTitle = React.createClass({
       //   displayName,
       //   sortComponent
       // );
-      return React.createElement('th', { onClick: columnIsSortable ? that.sort(col) : null, 'data-title': col, className: columnSort, key: col,
+      return React.createElement('th', { onClick: columnIsSortable ? that.sort : null, 'data-title': col, className: columnSort, key: col,
         style: titleStyles }, React.createElement(HeaderComponent, _extends({ columnName: col, displayName: displayName,
           filterByColumn: that.props.filterByColumn }, headerProps)), sortComponent);
     });
