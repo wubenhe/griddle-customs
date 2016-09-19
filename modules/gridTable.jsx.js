@@ -213,7 +213,7 @@ var GridTable = React.createClass({
         defaultColSpan = this.props.columnSettings.getVisibleColumnCount();
       }
 
-      var loadingComponent = this.props.externalLoadingComponent ? React.createElement(this.props.externalLoadingComponent, null) : React.createElement(
+      var loadingComponent = this.props.externalLoadingComponent ? React.createElement('div', null, this.props.externalLoadingComponent) : React.createElement(
         "div",
         null,
         "Loading..."
