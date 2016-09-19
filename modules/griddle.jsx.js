@@ -606,6 +606,9 @@ var Griddle = React.createClass({
         return myReturn;
     },
     shouldShowNoDataSection: function (results) {
+        if(this.props.externalIsLoading){
+          return false;
+        }
         return this.props.useExternal === false && (typeof results === "undefined" || results.length === 0) || this.props.useExternal === true && this.props.externalIsLoading === false && results.length === 0;
     },
     render: function () {
